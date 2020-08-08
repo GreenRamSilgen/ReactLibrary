@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*Nav bar*/
+.bar{
+  background-color: rgb(56, 56, 56);
+}
+.nav--spacer {
+  padding: 10px;
+}
+
+
+
+/*Content*/
+.content{
+  display: flex;
+  width: 100%;
+}

@@ -1,0 +1,18 @@
+.searchPageContent{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.searchBar{
+    margin: auto;
+}
+
+.form-group{
+    width: 50vw;
+}
+
+.form-control{
+    width: 50vw !important;
+}

@@ -1,65 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router, Route} from 'react-router';
+import history from './history';
+
 import './index.css';
-import {Fragment} from 'react';
-
-import {SearchPage} from './SearchPage'
-class Navbar extends React.Component{
-
-  render(){
-    return (
-      <div>
-        <button onClick={this.props.bodyToMyBooks}>My Books</button>
-        <button onClick={this.props.bodyToSearch}>Search</button>
-      </div>
-    );
-  }
-}
-
-
+import {Root} from './Root';
+import * as serviceWorker from './serviceWorker';
 
 
 class App extends React.Component{
-  constructor(props){
-    super(props);
-    
-    this.bodyToMyBooks = this.bodyToMyBooks.bind(this);
-    this.bodyToSearch = this.bodyToSearch.bind(this);
-    this.bodyLoader = this.bodyLoader.bind(this);
-    this.state = {
-      bodyToLoad: 1, //1 = my books, 2 = search, 3 
-    }
-  }
-
-  bodyToMyBooks(){
-    this.setState({
-      bodyToLoad: 1,
-    })
-  }
-  bodyToSearch(){
-    this.setState({
-      bodyToLoad: 2,
-    })
-  }
-
-  bodyLoader(){
-    if(this.state.bodyToLoad === 1){
-      return (<div>KOKOKO</div>);
-    }
-    else if(this.state.bodyToLoad === 2){
-      return (<SearchPage/>);
-    }
-  }
   render(){
-    return (
-      <Fragment>
-      <Navbar bodyToMyBooks={this.bodyToMyBooks} bodyToSearch={this.bodyToSearch}/>
-      <SearchPage/>
-      </Fragment>
+    return(
+      <Router history={history}>
+        <Route exact path={"/"} component={Root}/>
+        
+        <Route path={"/home"} component={Root}/>
+        <Route path={"/search"} component={Root}/>
+      </Router>
     );
   }
 }
 ReactDOM.render(
-  <App />,
+    <App />,
   document.getElementById('root')
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
