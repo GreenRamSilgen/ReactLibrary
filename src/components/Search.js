@@ -1,32 +1,50 @@
 import React from 'react';
-import './search.css'
+import './componentCSS/search.css'
 
 class Result extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.storeBook = this.storeBook.bind(this);
+    }
+    storeBook(e, book){
+        let myLibraryCount = (localStorage.getItem("myLibraryCount")) ? JSON.parse(localStorage.getItem("myLibraryCount")):0;
+        let myLibrary = (localStorage.getItem("myLibrary")) ? JSON.parse(localStorage.getItem("myLibrary")) : [];
+        
+        book.read = false;
+        book.key = myLibraryCount;
+        myLibrary.push(book);
+        myLibraryCount++;
+        
+        localStorage.setItem("myLibraryCount",JSON.stringify(myLibraryCount));
+        localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
+    }
+
     render(){
-        let bookCards = this.props.bookResults.map((book)=>{
+        let bookCards = this.props.bookResults.map((book, idx)=>{
             return (
-            <div className="bookCard">
+            <div className="bookCard" key={idx}>
                 <div className="bookPicture">
-                    <img src={(book.imgUrls) ? book.imgUrls.thumbnail : "#"} alt={(book.imgUrls) ? "image of book titled " + book.title : "No Image"}/>
+                    <img src={(book.imgUrls) ? book.imgUrls.thumbnail : "https://icon-library.com/images/icon-book/icon-book-14.jpg"} alt={(book.imgUrls) ? "image of book titled " + book.title : "No Image"}/>
                 </div>
                 <div className="bookInfo">
                     <div className="bookInfoHead">
                         <div className="bookInfoHead__left">
                         <h3>{book.title}</h3>
-                        <h5>By {(book.authors) ? book.authors[0] : "N/A"}</h5>
+                        <h5>By {book.authors[0]}</h5>
+                        <p>Lang: {book.language.toString().toUpperCase()}</p>
                         </div>
                         <div className="bookInfoHead__right">
-                            {/**
-                             * PUBLISHER ANE PUBLISH DATE HERE INSERT
-                             */}
-                        <p>Pages: ( {(book.pageCount) ? book.pageCount : "---"} )</p>
+                            <p>Publish Date: {book.publishDate}</p>
+                            <p>Publisher: {book.publisher}</p>
+                        <p>Pages: ( {book.pageCount} )</p>
                         </div>
                     </div>
                 <hr/>
                 <p>{book.description}</p>
                 </div>
                 <div className="addBookBtn">
-                <button type="button" class="btn btn-success">ADD TO MY LIBRARY</button>
+                <button type="button" className="btn btn-success" onClick={(e)=> this.storeBook(e, book)} currentbook={book}>ADD TO MY LIBRARY</button>
                 </div>
             </div>
             );
@@ -64,15 +82,15 @@ export class Search extends React.Component{
         if(!response.items) return;    
         response.items.forEach((book)=>{
                 let bookInfo = book.volumeInfo;
-                console.log(bookInfo);
-                console.log(bookInfo.imageLinks);
                 let bookObj = {
-                    title: bookInfo.title,
-                    authors: bookInfo.authors,
-                    description: bookInfo.description,
-                    pageCount: bookInfo.pageCount,
+                    title: (bookInfo.title) ? bookInfo.title : "N/A",
+                    authors: (bookInfo.authors) ? bookInfo.authors : ["N/A"],
+                    description: (bookInfo.description) ? bookInfo.description : "No description available.",
+                    pageCount: (bookInfo.pageCount) ? bookInfo.pageCount : "---",
                     imgUrls: (bookInfo.imageLinks === undefined) ? null : bookInfo.imageLinks,
-                    language: bookInfo.language
+                    language: (bookInfo.language) ? bookInfo.language : "---",
+                    publisher: (bookInfo.publisher) ? bookInfo.publisher : "---",
+                    publishDate: (bookInfo.publishedDate) ? bookInfo.publishedDate : "---",
                 };
                 resultsCopy.push(bookObj);
             });
