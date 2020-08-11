@@ -1,0 +1,34 @@
+.singleBookConent{
+    display: grid;
+    grid-template-columns: 20vw auto 15vw;
+    grid-template-areas: "left middle right";
+    grid-column-gap: 1em;
+    background-color: blanchedalmond;
+    padding: 1em;
+    margin: 1em;
+}
+
+.singleBookInfo{
+    grid-area: left;
+    padding: 10px;
+}
+.singleBookImgHolder{
+    background-color: tan;
+    text-align: center;
+    padding: 10px 0px;
+
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.singleBookDescription{
+    grid-area: middle;
+    padding: 10px;
+}
+
+.singleBookButtons{
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+}

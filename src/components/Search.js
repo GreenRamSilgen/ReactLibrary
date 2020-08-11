@@ -109,7 +109,7 @@ export class Search extends React.Component{
             <div className="searchBar">
                 <form className="form-inline" onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                    <input type="text" className="form-control" onChange={this.handleChange} placeholder="Enter Book Here"/>
+                    <input type="text" className="form-control" onChange={this.handleChange} placeholder="Search Book Here"/>
                     </div>
                     <input type="submit" className="btn btn-primary" value="Search"/>
                 </form>

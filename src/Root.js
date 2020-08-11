@@ -25,7 +25,7 @@ export class Root extends React.Component{
             <Header />
           </div>
         </div>
-        <div className="row">
+        <div className="row back">
           <div className="content">
             {loading}
           </div>
