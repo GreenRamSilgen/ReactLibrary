@@ -8,7 +8,7 @@ class ShelfBook extends React.Component{
         return(
             <div className={(this.props.book.read)?"shelfBook read" : "shelfBook"}>
                 <div className="shelfBookLeft">
-                    <img onClick={this.props.singleImgClicked} src={(this.props.book.imgUrls) ? this.props.book.imgUrls.thumbnail : "https://icon-library.com/images/icon-book/icon-book-14.jpg"} alt={(this.props.book.imgUrls) ? "image of book titled " + this.props.book.title : "No Image"}/>
+                    <img className="singleBookImg"onClick={this.props.singleImgClicked} src={(this.props.book.imgUrls) ? this.props.book.imgUrls.thumbnail : "https://icon-library.com/images/icon-book/icon-book-14.jpg"} alt={(this.props.book.imgUrls) ? "image of book titled " + this.props.book.title : "No Image"}/>
                     <button type="button" className="btn btn-danger shelfBtn" onClick={this.props.handleBookRemove}>Remove</button>
                 </div>
             <div className="bookPlaque">
