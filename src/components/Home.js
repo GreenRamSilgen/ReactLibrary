@@ -90,6 +90,8 @@ export class Home extends React.Component{
             <div className="homeHeader">
                 MY BOOKS:
             </div>
+
+
             <form onChange={this.filterSubmit}>
                 <label htmlFor="sortBy">Sort By: </label>
                 <select id="sortBy" name="sortBy" ref="abSort">
@@ -104,6 +106,8 @@ export class Home extends React.Component{
                     <option value="unreadOnly">Unread</option>
                 </select>
             </form>
+
+            
             <div className="bookShelf">
                 {this.state.myBooks.sort((a,b) =>{//sort based on state
                     if(this.state.sortTitle ==="true") return (a.title > b.title)?1:-1;

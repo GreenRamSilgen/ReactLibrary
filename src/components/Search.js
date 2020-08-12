@@ -11,8 +11,10 @@ class Result extends React.Component{
         this.storeBook = this.storeBook.bind(this);
         this.bookAdded = this.bookAdded.bind(this);
         this.popModal = this.popModal.bind(this);
+        this.popUpActivator = this.popUpActivator.bind(this);
 
         this.counter = 0;
+        this.pop = null;
         this.timer = true;
     }
 
@@ -30,6 +32,7 @@ class Result extends React.Component{
         localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
         this.counter++;
         this.popModal();
+        this.popUpActivator();
     }
     
     popModal(){
@@ -48,17 +51,16 @@ class Result extends React.Component{
         );
     }
 
-    render(){
-        let pop = null;
-
+    popUpActivator(){
         if(this.state.popUp && this.counter > 0){
             console.log("YO");
-            pop =this.bookAdded();
+            this.pop =this.bookAdded();
         }else if(!this.state.popUp && this.counter > 0){
             console.log("lele");
-            pop = this.bookAdded();
+            this.pop = this.bookAdded();
         }
-        
+    }
+    render(){
         let bookCards = this.props.bookResults.map((book, idx)=>{
             return (
             <div className="bookCard" key={idx}>
@@ -89,7 +91,7 @@ class Result extends React.Component{
         });
         return (
         <div>
-            {pop}
+            {this.pop}
             {bookCards}
         </div>
         );
@@ -99,17 +101,17 @@ export class Search extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            searchQuery:'',
             results: [],
         }
 
+        this.searchQuery = '';
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
     handleChange(event) {
-        this.setState({searchQuery: event.target.value});
+        this.searchQuery = event.target.value;
     }
 
     handleSubmit(event){
@@ -117,7 +119,7 @@ export class Search extends React.Component{
         let resultsCopy = [];
         
 
-        fetch("https://www.googleapis.com/books/v1/volumes?q="+this.state.searchQuery).then(res => res.json()).then((response) =>{
+        fetch("https://www.googleapis.com/books/v1/volumes?q="+this.searchQuery).then(res => res.json()).then((response) =>{
         if(!response.items) return;    
         response.items.forEach((book)=>{
                 let bookInfo = book.volumeInfo;
@@ -154,7 +156,6 @@ export class Search extends React.Component{
                 </form>
             </div>
             <div className="resultDisplay">
-                {/*IMPLEMENT THE RESULT MODULE TO DISPLAY ALL THE RESULTS*/}
                 {<Result bookResults={this.state.results}/>}
             </div>
             </div>
