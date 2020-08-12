@@ -6,7 +6,7 @@
 }
 
 .searchBar{
-    margin: auto;
+    margin: 1em auto;
 }
 
 .form-group{
@@ -20,11 +20,12 @@
 /*RESULT DISPLAY CSS*/
 .bookCard{
     display: flex;
-    margin: 10px 0px;
+    /* margin: 10px 0px; */
     padding: 10px;
-    border-radius: 5px;
+    color: rgb(230, 230, 230);
+    /* border-radius: 5px;
     border-style: solid;
-    border-width: 1px;
+    border-width: 1px; */
 }
 
 .bookCard:hover{
@@ -32,10 +33,10 @@
     transition: transform 100ms ease-out;
 }
 .bookCard:nth-child(even){
-    background-color: rgb(204, 204, 204);
+    background-color: rgb(121, 121, 121);
 }
 .bookCard:nth-child(odd){
-    background-color: rgb(243, 243, 243);
+    background-color: rgb(70, 70, 70);
 }
 
 .bookPicture{
@@ -55,4 +56,64 @@
 .addBookBtn{
     display: flex;
     width: 5em;
+}
+
+
+
+.bookAddedModal{
+    position: fixed;
+    left: 40%;
+    padding: 0.5em 1em;
+    background-color: white;
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: large;
+    font-weight: bold;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: rgb(231, 231, 231);
+    box-shadow: 0px 0px 5px whitesmoke;
+
+    z-index: 10;
+    opacity: 0;
+
+}
+.randotrue{
+    animation-name: fading;
+    animation: fading 1s ease-out;
+    animation-fill-mode: backwards;
+}
+
+.randofalse{
+    animation-name: fading2;
+    animation: fading2 1s ease-out;
+    animation-fill-mode: backwards;
+}
+
+@keyframes fading2{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes fading{
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
 }

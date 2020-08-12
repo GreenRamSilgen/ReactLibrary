@@ -42,7 +42,6 @@ export class SingleBookDisplay extends React.Component{
                 <div className="singleBookButtons">
                     <h4>Status: {(this.state.read) ? "Read" : "Not Read"}</h4>
                     <button type="button" className="btn btn-info" onClick={this.toggleRead}>Change Status</button>
-                    <button type="button" className="btn btn-danger">Remove</button>
                 </div>
             </div>
         );

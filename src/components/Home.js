@@ -7,13 +7,17 @@ class ShelfBook extends React.Component{
     render(){
         return(
             <div className={(this.props.book.read)?"shelfBook read" : "shelfBook"}>
-            <img onClick={this.props.singleImgClicked} src={(this.props.book.imgUrls) ? this.props.book.imgUrls.thumbnail : "https://icon-library.com/images/icon-book/icon-book-14.jpg"} alt={(this.props.book.imgUrls) ? "image of book titled " + this.props.book.title : "No Image"}/>
+                <div className="shelfBookLeft">
+                    <img onClick={this.props.singleImgClicked} src={(this.props.book.imgUrls) ? this.props.book.imgUrls.thumbnail : "https://icon-library.com/images/icon-book/icon-book-14.jpg"} alt={(this.props.book.imgUrls) ? "image of book titled " + this.props.book.title : "No Image"}/>
+                    <button type="button" className="btn btn-danger shelfBtn" onClick={this.props.handleBookRemove}>Remove</button>
+                </div>
             <div className="bookPlaque">
-                <h5>{this.props.book.title}</h5>
+                <h5 className="bookTitle">{this.props.book.title}</h5>
                 <p>By: {this.props.book.authors[0]} </p>
                 <p>Lang: {this.props.book.language.toString().toUpperCase()}</p>
                 <p>Publish:{this.props.book.publisher}</p>
                 <p>Publish Date: {this.props.book.publishDate}</p>
+                
             </div>
         </div>
         );
@@ -54,21 +58,28 @@ export class Home extends React.Component{
         localStorage.setItem("myLibrary",JSON.stringify(myBooksCpy));
     }
 
-    removeSingleBook(){
-        console.log("?");
+    removeSingleBook(key){
+        let idxToChange = this.state.myBooks.findIndex(book => book.key === key);
+        let myBooksCpy = this.state.myBooks;
+        myBooksCpy.splice(idxToChange,1);
+
+        this.setState({myBooks: myBooksCpy});
+        localStorage.setItem("myLibrary", JSON.stringify(myBooksCpy));
     }
 
 
     render() {
-        
-        console.log(this.state.myBooks);
         if(this.state.displaySingle){
             return (
-                <SingleBookDisplay singleBook={this.state.singleBookToDisplay} handleBookRemove={()=>this.removeSingleBook} readStatusChange={this.changeSingleBookRead}/>
+                <SingleBookDisplay singleBook={this.state.singleBookToDisplay} readStatusChange={this.changeSingleBookRead}/>
             );
         }
         else{
         return (
+            <div className="homeContent">
+            <div className="homeHeader">
+                MY BOOKS:
+            </div>
             <div className="bookShelf">
                 {this.state.myBooks.sort((a,b) =>{//sort based on state
                     if(this.state.sortTitle) return (a.title > b.title)?1:-1;
@@ -85,9 +96,10 @@ export class Home extends React.Component{
                 }).map((book)=>{
                     if(book === null) return null;
                     return(
-                        <ShelfBook key={book.key} book={book} singleImgClicked={() => this.singleBookClicked(book)}/>
+                        <ShelfBook key={book.key} book={book} singleImgClicked={() => this.singleBookClicked(book)} handleBookRemove={()=>this.removeSingleBook(book.key)}/>
                     )
                 })}
+                </div>
             </div>
         )
             }

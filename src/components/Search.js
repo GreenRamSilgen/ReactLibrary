@@ -5,8 +5,17 @@ class Result extends React.Component{
     constructor(props){
         super(props);
 
+        this.state = {
+            popUp: false,
+        }
         this.storeBook = this.storeBook.bind(this);
+        this.bookAdded = this.bookAdded.bind(this);
+        this.popModal = this.popModal.bind(this);
+
+        this.counter = 0;
+        this.timer = true;
     }
+
     storeBook(e, book){
         let myLibraryCount = (localStorage.getItem("myLibraryCount")) ? JSON.parse(localStorage.getItem("myLibraryCount")):0;
         let myLibrary = (localStorage.getItem("myLibrary")) ? JSON.parse(localStorage.getItem("myLibrary")) : [];
@@ -16,11 +25,40 @@ class Result extends React.Component{
         myLibrary.push(book);
         myLibraryCount++;
         
+        
         localStorage.setItem("myLibraryCount",JSON.stringify(myLibraryCount));
         localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
+        this.counter++;
+        this.popModal();
+    }
+    
+    popModal(){
+        this.setState({
+            popUp: !this.state.popUp,
+        })
+    }
+
+
+    bookAdded(){
+        this.timer = !this.timer;
+        return(
+            <div className={"bookAddedModal rando"+this.timer}>
+                <p>Book Added To Your Library!</p>
+            </div>
+        );
     }
 
     render(){
+        let pop = null;
+
+        if(this.state.popUp && this.counter > 0){
+            console.log("YO");
+            pop =this.bookAdded();
+        }else if(!this.state.popUp && this.counter > 0){
+            console.log("lele");
+            pop = this.bookAdded();
+        }
+        
         let bookCards = this.props.bookResults.map((book, idx)=>{
             return (
             <div className="bookCard" key={idx}>
@@ -51,6 +89,7 @@ class Result extends React.Component{
         });
         return (
         <div>
+            {pop}
             {bookCards}
         </div>
         );

@@ -1,10 +1,18 @@
 img{
+    height: inherit;
+    width: auto;
+}
+.homeContent{
     width: inherit;
 }
-
-
+.homeHeader{
+    font-size: xx-large;
+    text-align: center;
+    width: inherit;
+}
 .bookShelf{
     display: flex;
+    width: 100%;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
@@ -12,6 +20,7 @@ img{
 .shelfBook{
     display: flex;
     margin: 15px 15px;
+    height: fit-content;
     width: 28vw;
     padding: 1em;
     background-color: rgb(238, 238, 238);
@@ -20,12 +29,24 @@ img{
     border-style: solid;
     border-width: 1px;
 }
+.shelfBookLeft{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.shelfBtn{
+    margin-top: 1em;
+}
 
 .bookPlaque{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     margin: 0px 1em;
+}
+.bookTitle{
+    max-height: 3.8em;
+    overflow: hidden;
 }
 
 .read{
@@ -36,6 +57,9 @@ img{
     .bookPlaque {
       display: none;
     }
+    .shelfBook{
+        justify-content: center;
+    }
 }
 
 @media only screen and (max-width: 540px) {
@@ -44,5 +68,6 @@ img{
     }
     .shelfBook{
         width: fit-content;
+        justify-content: center;
     }
 }
