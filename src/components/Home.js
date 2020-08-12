@@ -34,7 +34,7 @@ export class Home extends React.Component{
             myBooks: (localStorage.getItem("myLibrary")) ? JSON.parse(localStorage.getItem("myLibrary")) : [],
             displaySingle: false,
             singleBookToDisplay: '',
-            sortTitle: true, //true = a->z , false = z->a
+            sortTitle: "true", //true = a->z , false = z->a
             readType: "All", //readOnly,  unreadOnly , All
         }
 
@@ -42,6 +42,7 @@ export class Home extends React.Component{
         this.singleBookClicked = this.singleBookClicked.bind(this);
         this.changeSingleBookRead = this.changeSingleBookRead.bind(this);
         this.removeSingleBook = this.removeSingleBook.bind(this);
+        this.filterSubmit = this.filterSubmit.bind(this);
     }
 
     singleBookClicked(book){
@@ -68,6 +69,15 @@ export class Home extends React.Component{
     }
 
 
+    filterSubmit(e){
+        e.preventDefault();
+        console.log(this.refs.abSort.value);
+        this.setState({
+            sortTitle: this.refs.abSort.value,
+            readType: this.refs.displayRead.value,
+        });
+    }
+    
     render() {
         if(this.state.displaySingle){
             return (
@@ -80,9 +90,23 @@ export class Home extends React.Component{
             <div className="homeHeader">
                 MY BOOKS:
             </div>
+            <form onChange={this.filterSubmit}>
+                <label htmlFor="sortBy">Sort By: </label>
+                <select id="sortBy" name="sortBy" ref="abSort">
+                    <option value="true">A-Z</option>
+                    <option value="false">Z-A</option>
+                </select>
+
+                <label htmlFor="displayRead">Display:</label>
+                <select id="displayRead" name="displayRead" ref="displayRead">
+                    <option value="All">All</option>
+                    <option value="readOnly">Read</option>
+                    <option value="unreadOnly">Unread</option>
+                </select>
+            </form>
             <div className="bookShelf">
                 {this.state.myBooks.sort((a,b) =>{//sort based on state
-                    if(this.state.sortTitle) return (a.title > b.title)?1:-1;
+                    if(this.state.sortTitle ==="true") return (a.title > b.title)?1:-1;
                     return (a.title>b.title)?-1:1;
                 }).map((book)=>{//display read only 
                     if(this.state.readType === "readOnly"){
