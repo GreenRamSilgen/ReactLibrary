@@ -1,21 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Router, Route} from 'react-router';
-import history from './history';
+//import {Router, Route} from 'react-router';
+//import history from './history';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 
 import './index.css';
-import {Root} from './Root';
+import './App.css';
+//import {Root} from './Root';
 import * as serviceWorker from './serviceWorker';
+import { Search } from './components/Search';
+import { Home } from './components/Home';
 
 
 class App extends React.Component{
   render(){
     return(
-      <Router history={history}>
-        <Route exact path={"/"} component={Root}/>
-        
-        <Route path={"/home"} component={Root}/>
-        <Route path={"/search"} component={Root}/>
+      <Router>
+        <Switch>
+          <Route path="/home">
+            <Home/>
+          </Route>
+          <Route path="/search">
+            <Search/>
+          </Route>
+          
+          <Route path="/">
+            <Home/>
+          </Route>
+        </Switch>
       </Router>
     );
   }

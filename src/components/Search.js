@@ -1,5 +1,6 @@
 import React from 'react';
 import './componentCSS/search.css'
+import {Header} from './Header';
 
 class Result extends React.Component{
     constructor(props){
@@ -145,7 +146,14 @@ export class Search extends React.Component{
 
 
     render() {
-        return (
+        return (<div className="container">
+        <div className="row bar">
+          <div className="col-xs-10 col-xs-offset-1">
+            <Header />
+          </div>
+        </div>
+        <div className="row back">
+          <div className="content">
             <div className="searchPageContent">
             <div className="searchBar">
                 <form className="form-inline" onSubmit={this.handleSubmit}>
@@ -159,6 +167,10 @@ export class Search extends React.Component{
                 {<Result bookResults={this.state.results}/>}
             </div>
             </div>
+            </div>
+            </div>
+            </div>
+
         )
     }
 }

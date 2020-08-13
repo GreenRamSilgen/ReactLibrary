@@ -2,6 +2,7 @@ import React from 'react';
 import './componentCSS/home.css'
 import {SingleBookDisplay} from './SingleBookDisplay'
 
+import {Header} from './Header';
 
 class ShelfBook extends React.Component{
     render(){
@@ -85,7 +86,14 @@ export class Home extends React.Component{
             );
         }
         else{
-        return (
+        return (<div className="container">
+        <div className="row bar">
+          <div className="col-xs-10 col-xs-offset-1">
+            <Header />
+          </div>
+        </div>
+        <div className="row back">
+          <div className="content">
             <div className="homeContent">
             <div className="homeHeader">
                 MY BOOKS:
@@ -128,6 +136,9 @@ export class Home extends React.Component{
                     )
                 })}
                 </div>
+            </div>
+            </div>
+            </div>
             </div>
         )
             }
