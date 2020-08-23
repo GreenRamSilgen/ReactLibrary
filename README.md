@@ -1,4 +1,4 @@
-demo: https://greenramsilgen.github.io/ReactLibrary/
+demo: https://reactlibrary-74152.web.app
 
 A personal library system created with HTML, CSS, JS, React. 
 ---
