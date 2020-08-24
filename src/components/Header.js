@@ -8,7 +8,7 @@ export class Header extends React.Component{
                 <div className="container">
                     <div className="navbar-header nav--spacer">
                         <ul className="nav navbar-nav">
-                            <li><Link to="/home">Home</Link></li>
+                            <li><Link to="/home" onClick={this.props.goHome}>Home</Link></li>
                         </ul>
                     </div>
                     <div className="navbar-header nav--spacer">

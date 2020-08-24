@@ -1,7 +1,7 @@
 import React from 'react';
 import './componentCSS/search.css'
 import {Header} from './Header';
-
+import firebase from 'firebase';
 class Result extends React.Component{
     constructor(props){
         super(props);
@@ -20,17 +20,26 @@ class Result extends React.Component{
     }
 
     storeBook(e, book){
-        let myLibraryCount = (localStorage.getItem("myLibraryCount")) ? JSON.parse(localStorage.getItem("myLibraryCount")):0;
-        let myLibrary = (localStorage.getItem("myLibrary")) ? JSON.parse(localStorage.getItem("myLibrary")) : [];
-        
         book.read = false;
-        book.key = myLibraryCount;
-        myLibrary.push(book);
-        myLibraryCount++;
+
         
+        let docRef = firebase.firestore().collection("lastKey").doc("vu6ozebIpVhs6SZNnyyO");
+        docRef.get().then(function(doc){
+            if(doc.exists){
+                book.key = Number(doc.data().key)+1;
+                docRef.update({
+                    key: book.key,
+                })
+            }else{
+                book.key = 0;
+            }
+            firebase.firestore().collection("books").doc(book.key.toString()).set(book);
+        }).catch(function(error){
+            console.log("Error getting document: ", error);
+        })
+
         
-        localStorage.setItem("myLibraryCount",JSON.stringify(myLibraryCount));
-        localStorage.setItem("myLibrary",JSON.stringify(myLibrary));
+
         this.counter++;
         this.popModal();
         this.popUpActivator();
@@ -57,7 +66,6 @@ class Result extends React.Component{
             console.log("YO");
             this.pop =this.bookAdded();
         }else if(!this.state.popUp && this.counter > 0){
-            console.log("lele");
             this.pop = this.bookAdded();
         }
     }

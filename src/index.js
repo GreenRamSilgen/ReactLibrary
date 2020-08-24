@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import {Router, Route} from 'react-router';
-//import history from './history';
+import * as firebase from 'firebase';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,6 +17,19 @@ import * as serviceWorker from './serviceWorker';
 import { Search } from './components/Search';
 import { Home } from './components/Home';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBUJ_aPpBb3DcQq0h66FpBrDD0iR4I0yZg",
+  authDomain: "reactlibrary-74152.firebaseapp.com",
+  databaseURL: "https://reactlibrary-74152.firebaseio.com",
+  projectId: "reactlibrary-74152",
+  storageBucket: "reactlibrary-74152.appspot.com",
+  messagingSenderId: "450026801744",
+  appId: "1:450026801744:web:4d7aa1b13767187c2e9f55",
+  measurementId: "G-3ZHXKKRC20"
+};
+
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 class App extends React.Component{
   render(){
@@ -38,6 +51,9 @@ class App extends React.Component{
     );
   }
 }
+
+
+
 ReactDOM.render(
     <App />,
   document.getElementById('root')
